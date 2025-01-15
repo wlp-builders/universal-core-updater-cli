@@ -140,7 +140,7 @@ class CMSCoreUpdater
         echo "  --url=<url>           The URL to the update ZIP file (required)\n";
         echo "  --target=<dir>        The directory to update (required)\n";
         echo "  --download-dir=<dir>  The temporary directory to store the ZIP file (default: ./temp)\n";
-        echo "  --exclude=<dirs>      Comma-separated list of directories to exclude (default: .git,config,uploads,custom/themes)\n";
+	echo "  --exclude=<dirs>      Comma-separated list of directories to exclude (default: **/.git)\n";
         echo "  --help                Display this help message\n";
     }
 
@@ -196,7 +196,7 @@ if (!isset($params['url']) || !isset($params['target'])) {
 $updateUrl = $params['url'];
 $targetDir = $params['target'];
 $downloadDir = $params['download-dir'] ?? __DIR__ . '/temp';
-$excludeDirs = isset($params['exclude']) ? explode(',', $params['exclude']) : ['.git', 'config', 'uploads', 'custom/themes'];
+$excludeDirs = isset($params['exclude']) ? explode(',', $params['exclude']) : ['**/.git'];
 
 $updater = new CMSCoreUpdater($updateUrl, $targetDir, $downloadDir, $excludeDirs);
 $result = $updater->updateCore();
